@@ -1,6 +1,6 @@
 # Projeto de Automação para Comentários no Facebook
 
-Desenvolvimento da automação com o objetivo de percorrer os comentários em uma publicação no Facebook. O projeto passou por diversas etapas de desenvolvimento e enfrentou desafios ao lidar com as restrições da plataforma.
+Desenvolvimento da automação com o objetivo de percorrer os comentários em uma publicação no Facebook. O projeto passou por diversas etapas de desenvolvimento e enfrentou desafios ao lidar com as restrições da plataforma e navegador.
 
 ## Objetivo
 
@@ -9,11 +9,12 @@ Desenvolvimento da automação com o objetivo de percorrer os comentários em um
 - Realização do primeiro contato com o usuário pelo Messenger;
 - Obtenção de leads;
 - Divulgação dos projetos e habilidades;
-- Testes do projeto e coleta dos dados fornecidos (LGPD);
-- Realização de network, promovendo aprendizados e entrevistas profissionais;
+- Testes do projeto e coleta dos dados (LGPD);
+- Promoção de network;
 - Facilitação ao público-geral em busca de recolocação profissional;
 - Inspiração de marketing para fins de vendas digitais;
-- Contornar a imposição da plataforma para evitar banimento.
+- Contornar a imposição da plataforma para evitar banimento;
+- Criação da extensão para servir facilmente ao desenvolvedor.
 
 ## Funcionamento
 
