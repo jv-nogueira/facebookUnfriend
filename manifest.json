@@ -1,0 +1,26 @@
+{
+    "manifest_version": 2,
+    "name": "facebookUnfriend",
+    "description": "",
+    "version": "1.0",
+    "permissions": ["activeTab"],
+    "icons": { 
+        "48": "icons/facebook.png"
+},
+
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        "urls.txt"
+      ]
+}
+
+
+
+  
