@@ -3,8 +3,7 @@ document.addEventListener("keydown", function(event) {
     
     fetch(chrome.runtime.getURL('urls.txt'))
     .then(response => response.text())
-    .then(text => {
- 
+    .then(permitidosURL => {
     var standardMessage = "\n\nSupport: jvnogueira2010@gmail.com";
     if(document.location.href.includes('friends')){
         if (event.keyCode === 113) {
@@ -27,37 +26,39 @@ document.addEventListener("keydown", function(event) {
 
                 var lastElementIndex = document.querySelectorAll('[data-pagelet="ProfileAppSection_0"]')[0].children[0].children[0].children[0].children[0].children[2].children[lastIndex] // Visualiza o last element do index da lista de perfis
 
-                var profileReference = document.querySelectorAll('[data-pagelet="ProfileAppSection_0"]')[0].children[0].children[0].children[0].children[0].children[2].children[index] // Referencia o perfil
 
-                var profileURL = profileReference.children[1].children[0].children[0].href // Retorna o URL do perfil de acordo com o index
-                
-                var buttonUnfriend = profileReference.children[2].children[0].children[0].children[0] // Clica no três pontinhos
                 
                 // var removeConfirm = document.querySelectorAll("[role='dialog']")[0].children[0].children[0].children[0].children[2].children[0].children[0].children[0].children[0].children[0].children[0] // Clica no botão confirmar do pop-up
 
-                var getName = profileReference.children[1].children[0].children[0].children[0].innerHTML
+                var profileReference = document.querySelectorAll('[data-pagelet="ProfileAppSection_0"]')[0].children[0].children[0].children[0].children[0].children[2].children[index] // Referencia o perfil
+                var referenceProfileURL = profileReference.children[1].children[0].children[0]
+                var referenceGetName = profileReference.children[1].children[0].children[0].children[0]
 
-                var getNameAndURL = {getName, profileURL}
+ 
+                if(index>1){
+                    var viewProfileSub2 = document.querySelectorAll('[data-pagelet="ProfileAppSection_0"]')[0].children[0].children[0].children[0].children[0].children[2].children[index-2] // Rola a página para que o elemento fique vísivel 
+                    viewProfileSub2.scrollIntoView()
+                }; 
 
-                var viewProfile = profileReference.scrollIntoView() // Rola a página para que o elemento fique vísivel 
+
+                if(referenceProfileURL.href != undefined){
+                    var profileURL = referenceProfileURL.href // Retorna o URL do perfil de acordo com o index
+                    var getName = referenceGetName.innerHTML
+                    var getNameAndURL = {getName, profileURL}
                 
-                var limiteContador = question;
-
-                    var usernamesPermitidos = text
-                    if(!usernamesPermitidos.includes(profileURL)){
-                        viewProfile 
+                    if(!permitidosURL.includes(profileURL)){
+                        var limiteContador = question;
                         if(contadorUnfriend < limiteContador){ // Limite de perfis que o bot vai remover da lista de amigos
                             arrayArmazenarNameAndURL.push(getNameAndURL)
-                            setTimeout(() => {
+                            var buttonUnfriend = profileReference.children[2].children[0].children[0].children[0] // Clica no três pontinhos
                                 buttonUnfriend.click()
                                 setTimeout(() => {
-                                    var removeFriend = document.querySelectorAll("[role='menuitem']")[3] // Clica na opção 'Remover amizade' da lista
+                                    var removeFriend = [...document.querySelectorAll("[role='menuitem']")].find(el => el.textContent == 'Remover amizade') // Clica na opção 'Remover amizade' da lista
                                     removeFriend.click()
                                     contadorUnfriend++
                                     index++
                                     percorrer()
                                 },getRandomSeconds(answerTemp))
-                            },getRandomSeconds(answerTemp))
                         }else{
                             setTimeout(() => {
                             var removeWhiteSpace = limiteContador.replace(/\s/g, '')
@@ -73,8 +74,8 @@ document.addEventListener("keydown", function(event) {
                             standardMessage)
                             if(questionFinal == true){
                                 // Criar o conteúdo do TXT
-                                var txtContent = "\uFEFFNome\tUsername\n";
-                                arrayArmazenarNameAndUsername.forEach(function (item) {
+                                var txtContent = "\uFEFFNome\tURL\n";
+                                arrayArmazenarNameAndURL.forEach(function (item) {
                                 txtContent += item.getName + "\t" + item.profileURL + "\n";
                                 });
 
@@ -99,8 +100,10 @@ document.addEventListener("keydown", function(event) {
                         };
                         
                     }else if(index < lastIndex){
+                        setTimeout(() => {
                         index++
                         percorrer()
+                    },getRandomSeconds(0.5))
                     }else{
                         setTimeout(() => {
                             lastElementIndex.scrollIntoView()
@@ -109,6 +112,20 @@ document.addEventListener("keydown", function(event) {
                             },getRandomSeconds(1))
                         },getRandomSeconds(1))
                     }
+                }else if(index < lastIndex){
+                        setTimeout(() => {
+                        index++
+                        percorrer()
+                    },getRandomSeconds(1))
+                    }else{
+                        setTimeout(() => {
+                            lastElementIndex.scrollIntoView()
+                            setTimeout(() => {
+                                percorrer()
+                            },getRandomSeconds(1))
+                        },getRandomSeconds(1))
+                    };
+                    
             }
         }else if(questionTemp <= 10){
             alert('Digite um número acima de 10!'+
