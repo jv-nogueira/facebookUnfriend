@@ -4,7 +4,7 @@ document.addEventListener("keydown", function(event){
     .then(response => response.text())
     .then(permitidosURL => {
     var standardMessage = "\n\nSupport: jvnogueira2010@gmail.com";
-    if(document.location.href.includes('following'&&'facebook')){
+    if(document.location.href.includes('following')&&document.location.href.includes('facebook')){
         if (event.keyCode === 113) {
             var questionLimiteContador = prompt("Digite no campo abaixo a quantidade de seguidores que o bot vai deixar de seguir da lista que está seguindo:"+
             standardMessage)
@@ -24,34 +24,115 @@ document.addEventListener("keydown", function(event){
                 var profileReference = document.querySelectorAll("[data-pagelet='ProfileAppSection_0']")[0].children[0].children[0].children[0].children[0].children[2].children // Referencia o perfil
                 var referenceProfileURL = profileReference[index].children[1].children[0].children[0]
                 var referenceGetName = profileReference[index].children[1].children[0].children[0].children[0]
-                console.log(index+" "+lastIndex)
                 if(referenceProfileURL.href != undefined){
-                    var profileURL = referenceProfileURL.href // Retorna o URL do perfil de acordo com o index
-                    var getName = referenceGetName.innerHTML
-                    var getNameAndURL = {getName, profileURL}
-                    if(!permitidosURL.includes(profileURL)){
+                    if(!permitidosURL.includes(referenceProfileURL.href)){
                         if(index>4){
                             profileReference[index-3].scrollIntoView()
                         };
                         if(contadorUnfriend < questionLimiteContador){ // Limite de perfis que o bot vai remover da lista de amigos
-                            arrayArmazenarNameAndURL.push(getNameAndURL);
-                            const mouseOverEvent = new MouseEvent('mouseover', { // Configurar 'mouseover' para abrir e 'mouseout' para fechar o pop-up
+                            const mouseOverEvent = new MouseEvent('mouseover', { // Editar 'mouseover' para abrir e 'mouseout' para fechar o pop-up
                                 bubbles: true,
                                 cancelable: true,
                                 view: window
-                              });
+                            });
                             referenceGetName.dispatchEvent(mouseOverEvent);
                             setTimeout(() => {
-                                const mouseOuEvent = new MouseEvent('mouseout', { // Editar 'mouseover' para abrir e 'mouseout' para fechar o pop-up
-                                    bubbles: true,
-                                    cancelable: true,
-                                    view: window
-                                  });
-                                referenceGetName.dispatchEvent(mouseOuEvent);
-                                contadorUnfriend++;
-                                index++;
-                                percorrer();
-                            }, getRandomSeconds(questionTemp/3));                              
+                                if(document.querySelectorAll("[aria-label='A seguir']")[0]){
+                                    if(document.querySelectorAll("[aria-label='A seguir']")[0]){
+                                    document.querySelectorAll("[aria-label='A seguir']")[0].click() // Clicar para abrir opções: 'Favoritos' e 'Não seguir'
+                                    }else{
+                                        document.querySelectorAll("[aria-label='Favoritos']")[0].click() // Clicar para abrir opções: 'Favoritos' e 'Não seguir'
+                                    }
+                                    setTimeout(()=>{
+                                        if(document.querySelectorAll("[role='menuitem']")[1]){
+                                            document.querySelectorAll("[role='menuitem']")[1].click() // Clicar na opção 'Não seguir'
+                                            setTimeout(() => {
+                                                const mouseOutEvent = new MouseEvent('mouseout', { // Editar 'mouseover' para abrir e 'mouseout' para fechar o pop-up
+                                                    bubbles: true,
+                                                    cancelable: true,
+                                                    view: window
+                                                });
+                                                referenceGetName.dispatchEvent(mouseOutEvent);
+                                                contadorUnfriend++;
+                                                index++;
+                                                percorrer();
+                                            }, getRandomSeconds(questionTemp/3))
+                                        }else{
+                                            [...document.querySelectorAll('span')].find(el => el.textContent == 'Não vais ver as publicações desta Página no teu feed.').click(); // Clicar em 'Não seguir'
+                                            setTimeout(() => {
+                                                [...document.querySelectorAll('span')].find(el => el.textContent == 'Conteúdos').click(); // Clicar para abrir Notificações/Conteúdos
+                                                setTimeout(() => {
+                                                    [...document.querySelectorAll('span')].find(el => el.textContent == 'Nenhuma notificação de publicações desta Página').click(); // Clicar em 'Desligar'
+                                                    setTimeout(() => {
+                                                        [...document.querySelectorAll('span')].find(el => el.textContent == 'Vídeo').click(); // Clicar para abrir Notificações/Vídeo
+                                                        setTimeout(() => {
+                                                            [...document.querySelectorAll('span')].find(el => el.textContent == 'Nenhuma notificação de vídeo desta Página').click(); // Clicar em 'Desligar'
+                                                            setTimeout(() => {
+                                                                [...document.querySelectorAll('span')].find(el => el.textContent == 'Vídeo em direto').click(); // Clicar para abrir Notificações/Vídeo em direto
+                                                                setTimeout(() => {
+                                                                    [...document.querySelectorAll('span')].find(el => el.textContent == 'Nenhuma notificação de diretos desta Página').click(); // Clicar em 'Desligar'
+                                                                    setTimeout(() => {
+                                                                        document.querySelectorAll("[aria-label='Atualizar']")[0].click(); // Por fim, clicar no botão 'Atualizar'
+                                                                        const mouseOutEvent = new MouseEvent('mouseout', { // Editar 'mouseover' para abrir e 'mouseout' para fechar o pop-up
+                                                                            bubbles: true,
+                                                                            cancelable: true,
+                                                                            view: window
+                                                                        });
+                                                                        referenceGetName.dispatchEvent(mouseOutEvent);
+                                                                        contadorUnfriend++;
+                                                                        index++;
+                                                                        percorrer();
+                                                                    }, getRandomSeconds(questionTemp/3))
+                                                                }, getRandomSeconds(questionTemp/3))
+                                                            }, getRandomSeconds(questionTemp/3))
+                                                        }, getRandomSeconds(questionTemp/3))
+                                                    }, getRandomSeconds(questionTemp/3))
+                                                }, getRandomSeconds(questionTemp/3))
+                                            }, getRandomSeconds(questionTemp/3))
+                                        };
+                                    }, getRandomSeconds(questionTemp/3))
+                                    var profileURL = referenceProfileURL.href // Retorna o URL do perfil de acordo com o index
+                                    var getName = referenceGetName.innerHTML
+                                    var getNameAndURL = {getName, profileURL}
+                                    arrayArmazenarNameAndURL.push(getNameAndURL);
+                                }else if(document.querySelectorAll("[aria-label='Favoritos']")[0]){
+                                    const mouseOutEvent = new MouseEvent('mouseout', { // Editar 'mouseover' para abrir e 'mouseout' para fechar o pop-up
+                                        bubbles: true,
+                                        cancelable: true,
+                                        view: window
+                                    });
+                                    referenceGetName.dispatchEvent(mouseOutEvent);
+                                    index++;
+                                    percorrer();
+                                }else{
+                                    document.querySelectorAll("[aria-label='Gostei']")[0].click(); // Clicar para abrir as definições
+                                    setTimeout(() => {
+                                        [...document.querySelectorAll('span')].find(el => el.textContent == 'Conteúdos').click(); // Clicar para abrir Notificações/Conteúdos
+                                        setTimeout(() => {
+                                            [...document.querySelectorAll('span')].find(el => el.textContent == 'Nenhuma notificação de publicações desta Página').click(); // Clicar em 'Desligar'
+                                            setTimeout(() => {
+                                                document.querySelectorAll("[aria-label='Não gosto']")[0].click(); // Clicar no botão 'Não gostar'
+                                                setTimeout(() => {
+                                                    document.querySelectorAll("[aria-label='Atualizar']")[0].click(); // Por fim, clicar no botão 'Atualizar'
+                                                    const mouseOutEvent = new MouseEvent('mouseout', { // Editar 'mouseover' para abrir e 'mouseout' para fechar o pop-up
+                                                        bubbles: true,
+                                                        cancelable: true,
+                                                        view: window
+                                                    });
+                                                    referenceGetName.dispatchEvent(mouseOutEvent);
+                                                    contadorUnfriend++;
+                                                    index++;
+                                                    percorrer();
+                                                }, getRandomSeconds(questionTemp/3))
+                                            }, getRandomSeconds(questionTemp/3))
+                                        }, getRandomSeconds(questionTemp/3))
+                                    }, getRandomSeconds(questionTemp/3))
+                                    var profileURL = referenceProfileURL.href // Retorna o URL do perfil de acordo com o index
+                                    var getName = referenceGetName.innerHTML
+                                    var getNameAndURL = {getName, profileURL}
+                                    arrayArmazenarNameAndURL.push(getNameAndURL);
+                                }
+                            }, getRandomSeconds(questionTemp/3));    
                         }else{
                             setTimeout(()=>{
                             var removeWhiteSpace = questionLimiteContador.replace(/\s/g, '')
