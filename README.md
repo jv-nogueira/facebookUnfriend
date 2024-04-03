@@ -41,6 +41,7 @@ Projeto de bot personalizado para remover da lista de amigos automaticamente na 
 - Em breve para ajudar na organização da lista de amigos, criarei o bot que pega todos os nomes e links do perfil para salvar em uma planilha ou bloco de notas
 - O bot foi desenvolvido com uma variação entre cada ciclo do intervalo de tempo para assim se aproximar com o comportamento humano e evitar restrições da rede social
 - Não há necessidade de utilizar o editor de código para configurar o bot, mas quem estiver interessado em contribuir realizando implementações, fique a vontade. Não se esqueça de dar uma estrela ao projeto
+- Nos testes particulares, o bot não enfrentou restrições por parte da plataforma do Facebook, mesmo operando em intervalos de 1 segundo
 
 ## Contato
 
